@@ -122,12 +122,17 @@
   .hero__tel{margin-top:16px;font-size:.86rem;color:var(--muted)}
   .hero__tel b{color:var(--ink);font-size:1.15rem}
   .hero__art{
-    aspect-ratio:1/1;border-radius:24px;
+    position:relative;aspect-ratio:3/2;border-radius:24px;
     background:radial-gradient(circle at 50% 42%,#fff6e6 0%,#ffe3bd 100%);
     box-shadow:var(--shadow);
     display:grid;place-items:center;overflow:hidden;border:6px solid #fff
   }
   .hero__art img{width:100%;height:100%;object-fit:cover}
+  .img-note{
+    position:absolute;left:8px;bottom:8px;z-index:3;
+    background:rgba(0,0,0,.55);color:#fff;font-size:.62rem;font-weight:700;
+    padding:2px 7px;border-radius:4px;letter-spacing:.03em;pointer-events:none
+  }
   .hero__art .ph{width:100%;height:100%;padding:16px 16px 8px;display:flex;flex-direction:column}
   .hero__art .ph svg{flex:1;min-height:0;width:100%;filter:drop-shadow(0 10px 16px rgba(150,80,20,.2))}
   .hero__art .ph .cap{text-align:center;font-size:.72rem;color:var(--muted);padding-top:4px}
@@ -455,15 +460,15 @@
         <a class="btn" href="#order">📝 予約フォームで注文</a>
         <a class="btn btn--ghost" href="#menu">メニューを見る</a>
       </div>
-      <p class="hero__tel">お電話でのご注文も　<b>大牟田店 0944-55-0123</b>（10:30–18:30）</p>
     </div>
     <div class="hero__art">
       <!-- 写真差し替え: images/hero.jpg を置くと自動でこのイラストと入れ替わります -->
-      <img src="images/hero.jpg" alt="マイショップの名物イカ弁"
+      <img src="images/hero.jpg" alt="マイショップ 大牟田店の外観（イメージ）"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="ph" id="heroArt" style="display:none">
         <span class="cap">写真はイメージです</span>
       </div>
+      <span class="img-note">※イメージ</span>
     </div>
   </div>
 </section>
@@ -921,7 +926,8 @@
           ${item.tag ? `<span class="tag">${item.tag}</span>` : ``}
           <span class="card__hint">タップで拡大</span>
           ${ART[item.art] || ART.ika}
-          <img class="card__photo" src="images/menu_${item.key}.jpg" alt="${item.name}" loading="lazy" onerror="this.remove()">
+          <img class="card__photo" src="images/menu_${item.key}.jpg" alt="${item.name}（イメージ）" loading="lazy" onerror="this.remove()">
+          <span class="img-note">※イメージ</span>
         </div>
         <div class="card__body">
           <h3>${item.name}</h3>
@@ -979,7 +985,8 @@
     document.getElementById('imPrice').textContent = it.priceText ? ('¥'+it.priceText) : ('¥'+(it.price||0).toLocaleString());
     document.getElementById('imMedia').innerHTML =
       (ART[it.art] || ART.ika) +
-      `<img src="images/menu_${it.key}.jpg" alt="${it.name}" onerror="this.remove()">`;
+      `<img src="images/menu_${it.key}.jpg" alt="${it.name}（イメージ）" onerror="this.remove()">` +
+      `<span class="img-note">※イメージ</span>`;
     document.getElementById('imAdd').onclick = () => { Cart.add(key); closeItemModal(); };
     imEl.hidden = false;
     document.body.style.overflow = 'hidden';
