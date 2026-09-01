@@ -9,9 +9,10 @@
   ogp.jpg    … SNSシェア用サムネイル（1200x630 推奨）
 
 ■ メニューの商品写真（4:3・800x600 前後推奨。JPG）
-  menu_ika.jpg            … イカ弁
+  ※ 現在は仮のAI生成画像を配置済み。実物の写真ができたら同じ名前で上書き。
+  menu_ika.jpg            … イカ弁       （仮：タルタル唐揚げ）
+  menu_ikataru.jpg        … イカたる弁当  （仮：menu_ika と同じ画像）
   menu_noriika.jpg        … のりイカ弁当
-  menu_ikataru.jpg        … イカたる弁当
   menu_noriben.jpg        … のり弁
   menu_chikuroku.jpg      … ちくろく弁当
   menu_karaage.jpg        … 唐揚げ弁当
