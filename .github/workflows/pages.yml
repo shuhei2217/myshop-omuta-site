@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+# main に push されるたび、GitHub Pages へ静的ファイルを自動デプロイします。
+# サーバー側スクリプト（submit.php 等）は GitHub Pages 上では動作しないため、
+# デプロイ対象からは除外しています（見た目の確認用サイトになります）。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build static site (exclude server-only files)
+        run: |
+          mkdir -p dist
+          rsync -a \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='dist/' \
+            --exclude='submit.php' \
+            --exclude='config.php' \
+            --exclude='config.sample.php' \
+            --exclude='README.txt' \
+            --exclude='images/README.txt' \
+            --exclude='.gitignore' \
+            ./ dist/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
